@@ -1,6 +1,6 @@
 # Javascript Best Practices - v.ES6
 
-Monkey see. Monkey do.
+The Golden Rule or Best Practices in any organisation is  ___Monkey see. Monkey do.___
 
 ## Best Practices Rule Number One
 __Sweat the small stuff.__
@@ -12,7 +12,7 @@ You won't get there, but will never become the best programmer you can be if you
 ## All the other Rules
 Javascript is untyped. Keep it this way.
 
-Don't try any clever optimisation. The compiler is almost certainly better at it that you are.
+Don't try any clever optimisation. The compiler is almost certainly better at it than you are.
 
 ## Chapter 1
 ### Use JavaScript
@@ -22,7 +22,7 @@ An object is a collection of variables which are called "Object attributes" and 
 #### Native Methods
 Always use native methods when they are available. If an native method is available, and you use a crazy cool hack to achieve the same thing, I'll be expecting it to come with a slew of JSPerfs. See "Preoptimisation" at the bottom of the page.
 ##### JQuery
-JQuery comes with the site, but hey who knows if we will take it out one day.  Yeah ok, it's unlikely, but when you know that JQuery is wrapping a JavaScript native function (or method, naturally), don't use the JQuery. See  the section on "JQuery and other LIbraries" near the bottom of this page.
+JQuery comes with the site, but hey who knows if we will take it out one day.  Yeah ok, it's unlikely, but when you know that JQuery is wrapping a JavaScript native function (or method, naturally), don't use the JQuery. See  Chapter 3 on "JQuery and other LIbraries" near the bottom of this page.
 ##### Use ES6
 We now babelify everything. Use ES6 where it is appropriate. If you don't know where it is appropriate, keep reading.
    * Step 1: Make sure you are using strict everywhere. No exceptions
@@ -35,7 +35,7 @@ http://pixelscommander.com/wp-content/uploads/2014/12/P10.pdf
 
 ### Formatting
 Object Shapes
-Objects should always be declared in exactly the form they are going to be used, at the smallest scope, and must never be mutated. See the NASA rules number 6. They do it as well!
+Objects should always be declared in exactly the form they are going to be used, at the smallest scope, and must never be mutated. See the NASA rules number 6.
 
 You can modify an object values with blistering speed in JS, but as soon as you change the shape of an object, the JIT compiler has to rebox it in every single reference.
 
@@ -60,7 +60,7 @@ var myObject = {
 myObject.thingb = "hello world"
 
 /** myObject has now changed shape and looks like this:
-var myObject = {
+> myObject = {
 	thinga: 12,
 	thingb = "hello world"
 }
@@ -454,7 +454,7 @@ There is a time when individual parameters is to be recommended over a parameter
 Well known types and frequently used objects must be consistently named. Examples:
    * domNodes should be called `el`, collections of domNodes are called `els` or `elements`
    * objects of type `TwentyPageParams` should always be called `pageParams`
-   * native and Twetny events are always called `e`
+   * native and Twenty events are always called `e`
    * unique identifiers are always called something descriptive with a suffix of `Id` - `storyId`,`categoryId`, etc
    * If your parameters are simple primitives (ie of type string, number, boolean), then give them sensible, descriptive names. -`categoryName`, `position`, etc
    * self-rolled objects described in the method's JSDoc used to configure the appearance or configuration of an object should always be called "params"
@@ -716,7 +716,7 @@ var myListItems = document.querySelectorAll("# aCertainSection" .aTypeofUL li);
 
 Now, this looks as if it is going to work left to right, first of all finding your section, then the particular type of unordered list you are looking for, then the list items in it. This is not what happens.
 
-What actually happens is that the parser first finds all the list items in the document. Then it chucks out all the ones not in the certainTypeofUL. Then it looks that remaining ones, and keeps just those which are in the aCertainSection that you are interested in.
+What actually happens is that the parser first finds all the `li` list items in the document. Then it chucks out all the ones not in the `certainTypeofUL`. Then it looks that remaining ones, and keeps just those which are in the `aCertainSection` that you are interested in.
 
 You can force it to return left to right by remembering that your selector methods work on all NodeLists, not just on the document so:
 
@@ -724,8 +724,8 @@ You can force it to return left to right by remembering that your selector metho
 var myListItems = document.getElementById("aCertainSection").querySelectorAll(".aTypeofUL").getElementsByTagName("li");
 would almost certainly be a LOT faster than the single shot above.
 
-This is what jQuery's find does.
-But now I think about it, I bet mine is faster, because I am being more specific in my selectors.
+This is what jQuery's find does, but my example will always be faster, because I am being more specific in my selectors.
+
 I win, jQuery, I WIN.
 (of course... round here we don't make wild claims and take a bow. We make JSPerfs and take a bow: http://jsperf.com/jquery-child-selector-vs-find/18 )
 
@@ -737,19 +737,18 @@ Other people's code is always terrible. Don't assume that just because you don't
 This does not mean "Do not use other people's libraries". It means that when you do, make sure that you document the fact, put them in the proper place (currently /app_dev/src/js/libs), and tell your esteemed colleagues about it next time you present at Demo Day.
 
 A library that is only used once isn't a library, it's a hack.
-*we don't want to cause bloat. Just so that's clear.
 
 ### Preoptimisation
 The JS engine is better at optimising than you are.
 Here's a great example.
 ```javascript
-var timestamp = +new Date();
-var timestamp = Date.now();
+1 var timestamp = +new Date();
+2 var timestamp = Date.now();
 ```
-The first of these was used for a long while by developers who thought themselves proper clever because it has that funky plus thing in front. To really understand why this works, it requires you to read the specification in way more detail than anyone who ever used this actually did. "It forces date to be a number" isn't actually a very good answer to the question "why does this work?", but because it sounds like a hidden, but self-evident truth, it was used a lot. Thing is, it's really slow. And if you are going to use sneaky optimisations based on a thorough reading of the spec, then do it because it is fast (or as some advantage). Being clever is not enough.
-If you want the full "stop it with your damn preoptimisation tricks" JSPerf, look no further than here.
+The first of these was used for a long while by developers who thought themselves proper clever because it has that funky coercive plus thing in front. To really understand why this works, it requires you to read the specification in way more detail than anyone who ever used this actually did. "It forces date to be a number" isn't actually a very good answer to the question "why does this work?", but because it sounds like a hidden, but self-evident truth, it was used a lot. Thing is, it's really slow. And if you are going to use sneaky optimisations based on a thorough reading of the spec, then do it because it is fast (or as some advantage). Being clever is not enough.
+If you want the full "stop it with your damn preoptimisation tricks" JSPerf, look no further than this `Date` example.
 
-Everything you have read about how to optimise your javascript code for speed is probably either wrong, outdated, or soon to be wrong and outdated.
+_Everything you have read about how to optimise your javascript code for speed is probably either wrong, outdated, or soon to be wrong and outdated._
 
 On top of that, everything you know about Javascript-specific optimising on the desktop is irrelevant on the mobile.
 
@@ -762,4 +761,4 @@ If you can't write the tests (see http://jsperf.com/ for how to make it easy), y
 
 [Read the ECMA spec once a year.](http://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
-[The best notes on the spec are at](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/)
+The best notes on the spec are [here](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/). You should read them as well.
