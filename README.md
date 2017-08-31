@@ -722,6 +722,7 @@ You can force it to return left to right by remembering that your selector metho
 
 ```javascript
 var myListItems = document.getElementById("aCertainSection").querySelectorAll(".aTypeofUL").getElementsByTagName("li");
+```
 would almost certainly be a LOT faster than the single shot above.
 
 This is what jQuery's find does, but my example will always be faster, because I am being more specific in my selectors.
@@ -730,7 +731,7 @@ I win, jQuery, I WIN.
 (of course... round here we don't make wild claims and take a bow. We make JSPerfs and take a bow: http://jsperf.com/jquery-child-selector-vs-find/18 )
 
 #### And other Libraries
-If you want to cause bloat in a front end application* the very best way to do this is to include third party libraries instead of coding stuff yourself.
+If you want to cause bloat in a front end application (we don't. Just saying) the very best way to do this is to include third party libraries instead of coding stuff yourself.
 
 Other people's code is always terrible. Don't assume that just because you don't know who wrote it, or that because it was written by a whole bunch of people in their spare time that it is any good. It might be, but hey, you're awesome. You can do better!
 
