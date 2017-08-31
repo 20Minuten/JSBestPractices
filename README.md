@@ -1,29 +1,29 @@
-#Javascript Best Practices - v.ES6
+# Javascript Best Practices - v.ES6
 
 Monkey see. Monkey do.
 
-##Best Practices Rule Number One
+## Best Practices Rule Number One
 __Sweat the small stuff.__
 
 Be precise. Be Pedantic. Demand absolute perfection in everything that you do. From yourself and from others.
 
 You won't get there, but will never become the best programmer you can be if you aren't determined to fail and fail again in your constant quest for perfection
 
-##All the other Rules
+## All the other Rules
 Javascript is untyped. Keep it this way.
 
 Don't try any clever optimisation. The compiler is almost certainly better at it that you are.
 
-##Chapter 1
-###Use JavaScript
+## Chapter 1
+### Use JavaScript
 A variable is a placeholder for a value.
 A function is a block of code made up of one or more statements or operations which work together to do a predictable something.
 An object is a collection of variables which are called "Object attributes" and functions which are called "Object methods"
-####Native Methods
+#### Native Methods
 Always use native methods when they are available. If an native method is available, and you use a crazy cool hack to achieve the same thing, I'll be expecting it to come with a slew of JSPerfs. See "Preoptimisation" at the bottom of the page.
-#####JQuery
+##### JQuery
 JQuery comes with the site, but hey who knows if we will take it out one day.  Yeah ok, it's unlikely, but when you know that JQuery is wrapping a JavaScript native function (or method, naturally), don't use the JQuery. See  the section on "JQuery and other LIbraries" near the bottom of this page.
-#####Use ES6
+##### Use ES6
 We now babelify everything. Use ES6 where it is appropriate. If you don't know where it is appropriate, keep reading.
    * Step 1: Make sure you are using strict everywhere. No exceptions
    * Step 2. Turn on JSLINT Keep it on. Put it on it's nastiest settings, and never turn it off.
@@ -33,7 +33,7 @@ If it's good enough for NASA, it's good enough for us. (Rule number 10).
 
 http://pixelscommander.com/wp-content/uploads/2014/12/P10.pdf
 
-###Formatting
+### Formatting
 Object Shapes
 Objects should always be declared in exactly the form they are going to be used, at the smallest scope, and must never be mutated. See the NASA rules number 6. They do it as well!
 
@@ -68,7 +68,7 @@ var myObject = {
 ```
 
 If you want to know more about this, there are books on the iPads.
-####Whitespace
+#### Whitespace
 Set up your code editor to expand all tabs to four spaces. Sure, some people prefer two spaces. Some crazies even like eight. There reason for four is that it makes everything line up prettily when initialising variables. The word var has three characters. The space after it counts as another one. That makes four.
 
 We always, always initalise variables using the onevar principle.
@@ -101,7 +101,7 @@ This are some of the rules for whitespace. Not all of them.
 
 All of the code in this document follows our whitespace rules. So does all of the core code in Twenty. Read it and do the same.
 
-####Being Lazy
+#### Being Lazy
 We're not writing Coffee Script (thank goodness).
 
 Don't omit your braces - not even in really really simple if-else statements.
@@ -109,7 +109,7 @@ Don't omit your braces - not even in really really simple if-else statements.
 Also not in an else-if statement
 
 Don't rely on semicolon insertion. Put them in yourself. Seriously. There's lazy, and there's not-able-to-find-the-semicolon-key lazy. Don't be _natftsk_ lazy.
-####Indenting
+#### Indenting
 Opening braces never go on their own line. They are (almost always) followed immediately by a new line.
 
 This Bad and is not ok:
@@ -132,8 +132,8 @@ The line following an opening brace is always indented a further 4 spaces.
 
 A closing brace always occupies a line all on its own, and will be indented 4 spaces fewer than the line above it.
 
-##Chapter 2
-###Variables
+## Chapter 2
+### Variables
 
 The `new` keyword should be avoided wherever possible. It is _always_ possible.
 
@@ -144,7 +144,7 @@ Primitives should be initialised as an instance of what you want them to be. Thi
      myObject = {};
 ```
 The short example above also illustrates three other important Best Practices – onevar, tabbing and naming conventions.
-####Naming Javascript Variables
+#### Naming Javascript Variables
 
 Use camelCase. This is how Javascript works internally.
 There is no good argument against continuing this established pattern.
@@ -162,7 +162,7 @@ That was words, by the way, not numbers
     var myCoolElement3 = ... // someone's getting a written warning
 ```
 
-#####Onevar and Scopes
+##### Onevar and Scopes
 
 Javascript used to have three scopes. Now it has four.
 
@@ -170,7 +170,7 @@ Variables should be declared once at the top of the scope to which they belong. 
 Using onevar is the best defence you have against leaking variables into the global scope.
 Leaking variables into the global scope is Very Bad.
 
-######Scope
+###### Scope
 If you are using the global scope you are either the head chief top dog system architect, or you have cleared it with him / her, or you have done something wrong. My money is on the last of these.
 Avoid global variables wherever possible (which is, basically, always. We have one global variable - Twenty. That should be enough for anyone.)
 
@@ -178,7 +178,7 @@ Also, variable hoisting.
 
 Variable hoisting is massively powerful in Javascript, and massively unintuitive for people who are more used to other, more didactic, programming languages. This document isn't going to go into what variable hoisting it, other than to say that onevar is your pest protection against weird bugs caused by it.
 
-You can read about it here. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
+You can read about it here. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var# var_hoisting
 
 Do this:
  ```javascript
@@ -213,7 +213,7 @@ But don't do this:
 
 Onevar is not about optimisation, hoisting or minification, it's about explicitly declaring our variables in one place (the place where the interpreter puts them anyway) and guarding ourselves against pollutiing the global space. Assigning variables values in a onevar context does not help with any of these thiings.
 This will be enforced at check in by a JSLint pre-commit hook. Not JSHint. We do this because we love you. Love hurts sometimes.
-####Default values
+#### Default values
 Use them.
 The old way of setting default values was with the super-pretty || "hack", or the purer, but less refined typeof check
 ```javascript
@@ -231,8 +231,8 @@ function myFunction(a = "hello world", b = 42) {
 In perl there are always a million way to do the same, simple thing. If you fancy a laugh, read [this from perlmonks](http://www.perlmonks.org/?node_id=161091)
 
 
-####When to use var, let and const.
-#####Const
+#### When to use var, let and const.
+##### Const
 const means a constant. It doesn't mean "a variable which is unlikely to change". It means "a placeholder for a value which will not change". It has a fixed value.
 We make it really very clear that this is a `const` by using `ALLCAPS` for the conts name
 
@@ -248,7 +248,7 @@ const STORYCOUNT = 16;
 const STANDARDBORDER = "12px";
 ```
 
-#####Var
+##### Var
 Use vars in function scope and when it's scope spreads over multiple blocks (and it's not a const).
 Use vars for any values which are going to be returned out of the function
 ```javascript
@@ -264,7 +264,7 @@ var mySuperFunction = function(a) {
 	return anotherthing;
 }
 ```
-#####Let
+##### Let
 Let is a variable which is scoped to a block. The concept of "blocks" as self-contained is totally new to JavaScript in ES6, so it's worth making sure we get it right.
 A block is any portion of code between two curly braces. So functions are blocks, but we already know that these are function blocks and have a different scope to block blocks and should always use vars.
 aka: you should never have a let at the top of a function.
@@ -279,9 +279,9 @@ This is a good place to use a let.
 		}
     });
 
-##Chapter 3
-###Primitives
-####Booleans
+## Chapter 3
+### Primitives
+#### Booleans
 Possibly the most important thing to know, remember, and use to your advantage are the six falsey values in Javascript.
 
   * "" the empty string
@@ -327,7 +327,7 @@ Don't forget that sometimes falsey values may actually be a valid value, in whic
 ```
 Which effectively documents your code, and returns the expected result
 
-####Strings
+#### Strings
 How To String
 There are now three exciting ways to write strings.
 
@@ -344,7 +344,7 @@ var coverText = 'Don\'t Panic';    // got hit with the ugly stick
 var coverText = "Don't Panic";     // ahhh, that's better.
 ```
 
-#####Template Strings
+##### Template Strings
 New in ES6 2015. Template strings have an almost magical ability to make your code more complicated and ugly.
 
 So, I don't like template strings. But, they are in the spec, so we shall use them.
@@ -364,8 +364,8 @@ newPage = $("<div id='${idref}'></div>");        // es-new
 __Do not use__ template strings as a direct parameter to a sizzle lookup.
 ```javascript
 let node = {id: "myNode"};
-$("#" + node.id);        // es-old
-$(`#${node.id}`);        // es-new
+$("# " + node.id);        // es-old
+$(`# ${node.id}`);        // es-new
 ```
 Anyone trying to tell me that the new version of this is easier to read, better sugar or less prone to errors had better have some pretty big arguments to back them up. Don't do this. It's horrible.
 
@@ -376,7 +376,7 @@ let longString = `Shall I compare thee to a summer’s day?
 		Rough winds do shake the darling buds of May,
 		And summer’s lease hath all too short a date`;
 ```
-####Functions
+#### Functions
 Like this:
 ```javascript
 var myFunction = function(params) {
@@ -395,7 +395,7 @@ Javascript functions are first-order. This means that they can accept functions 
 
 The can also accept primitives or objects. (And arrays, but arrays are a specific sort of object).
 
-#####Function Parameters
+##### Function Parameters
 If you want your function to accept multiple parameters, you can separate them with commas. This has two advantages: one, it will be faster; two, it can help a lot with minification.
 However, it has one serious disadvantage, and that is of maintainability. If at some point in the future you need to add a new parameter, you can end up with really difficult function calls, for example; say you have a utility function for opening a new window with a bunch of optional parameters:
 ```javascript
@@ -436,7 +436,7 @@ if you then call this with a parameter object with no reuseExisting, the private
 ```
 There is a time when individual parameters is to be recommended over a parameter object - when you are doing serious optimisation to very intensive of often used core functionality. We don't really have much of this in the app. We do a lot of object munging, but not a lot of hardcore mathematics. So, generally, stick to the parameter object
 
-#####Naming Function Parameters
+##### Naming Function Parameters
 Well known types and frequently used objects must be consistently named. Examples:
    * domNodes should be called `el`, collections of domNodes are called `els` or `elements`
    * objects of type `TwentyPageParams` should always be called `params`
@@ -449,7 +449,7 @@ Well known types and frequently used objects must be consistently named. Example
 Look at what is happening in existing code and do the same.
 
 
-#####Function invocation
+##### Function invocation
 There are 2 ways of closing a Javascript self invoked function. We close it like this:
 ```javascript
 // our style, use this
@@ -460,7 +460,7 @@ There are 2 ways of closing a Javascript self invoked function. We close it like
 })();
 ```
 
-#####Arrow Functions
+##### Arrow Functions
 New in ES6 2015. Arrow functions are an almost entirely pointless sugar for people who can't use
 `bind`, designed to make writing functions more annoying.
 
@@ -485,7 +485,7 @@ promise.then(result => result.prop).catch(error => Twenty.error.log(error));
 ```
 
 
-####Dates
+#### Dates
 
 Fans of the `new` keyword rejoice, creation of `new Date` is currently one of the few places where `new` is actually a good idea.
 If you want a milliseconds "now" date, create a new Date and grab the now(). See below for why we no longer coerce it to a number with the + operator.
@@ -496,7 +496,7 @@ No matter how much I learn about computers, I will always be amazed that they co
 new Date().now()
 > 1498740286267
 ```
-#####Formatting Dates
+##### Formatting Dates
 Let's face it, this used to be a ball-ache, and the only thing that Java developers could ever use to score points against us. "Ha, but you can't even format dates". Well, let them try it now. The JavaScript date formatting functions are without a doubt, unsurpassed in the whole universe of computer cleverness.
 
 [Read this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
@@ -517,12 +517,12 @@ var options = {
 new Date("2017-06-30T00:00:00.000+02:00").toLocaleString("de-CH", options)
 > "Freitag, 30. Juni 2017"
 ```
-####Or and And
+#### Or and And
 The double-pipe or operator and the double-ampersand and operator stop evaluation as soon as possible, and return either the value of the truthy test, or false.
 
 This means that they can be used for accessing properties without knowing if an object is set, or for setting default values. Some people don't like this, because it looks a lot different than in other languages. However, we are not writing in other languages, we are writing in Javascript and therefore it is elegant and powerful.
 
-#####Setting a default value:
+##### Setting a default value:
 ```javascript
 var myDefaultValue = parameter || 12;
 ```
@@ -537,13 +537,13 @@ var myDeepLinkValue = paramObj && paramObj.someValue;
 If paramObj does not exist, the JS engine stops here and returns false.
 It if does exist, it looks to see if paramObj has a property (or method) called someValue. If it does, it returns the value of someValue, if it does not, it returns false.
 
-####instanceof vs typeof
+#### instanceof vs typeof
 
 Use `instanceof` for custom types, use `typeof` for built in prototypes.
 
 Seeing as we don't currently use custom types, that means always use `typeof`.
 Is there an argument for using a factory for our custom objects, and using an instanceof check when we pass them around? Yes, there probably is, but we don't do it just yet.
-(Twenty custom types here: http://api.graham.tamedia.ch/global.html#Twenty )
+(Twenty custom types here: http://api.graham.tamedia.ch/global.html# Twenty )
 ```javascript
 var ClassFirst = function () {};
 var ClassSecond = function () {};
@@ -588,9 +588,9 @@ And, this being JS, therefore wtf, don't forget:
 ```javascript
 typeof null; //object
 ```
-##Chapter 4
-###Getting in and out of the DOM
-####Reading
+## Chapter 4
+### Getting in and out of the DOM
+#### Reading
 
 You don't have to use jQuery for everything.
 jQuery is good at doing a set of manipulations on a set of nodes. If you're trying to just return one element, or if you are only going to do simple javascript-native stuff, then don't feel like you have to use jQuery. Use the javascript native stuff.
@@ -601,7 +601,7 @@ document.querySelector
 document.querySelectorAll
 You can take a look at this website to find out the javascript alternative of a jQuery function: http://youmightnotneedjquery.com/
 Once you have found your elements, if you are going to use their properties more than once, save them somewhere.
-####Writing
+#### Writing
 This is the most expensive operation we have available to us. Use it as infrequently as possible.
 If you have to perform a series of operations creating dom elements, store them all up in a DocumentFragment and once everything is finished, make the last thing you do appending the DocumentFragment to the DOM.
 
@@ -610,13 +610,13 @@ For example with non-contiguous elements, (modifying elements is another example
 
 Then destroy the objects in memory.
 
-##Chapter 5
-###Twenty
-####Read the Documentation.
+## Chapter 5
+### Twenty
+#### Read the Documentation.
 An extensive API is provided. With docs and tests. Mostly. Please use them. Using the functionality provided ensures the highest coding standards in the most important parts of the application. It stops memory leaks, avoids repetition and is tested and documented.
 Please add things that you think are useful here.
 
-####Nesting Blocks
+#### Nesting Blocks
 We write our code using the principle of "I already knew that". I don't know if this has a proper name. I expect it does, most things in programming do. And, again, in common with most things in programming, this is easiest explained by looking at some code.
 Some Code:
 
@@ -645,10 +645,10 @@ Form - needs a checkbox set.  Already knows what one of those is!
 Button - declare a button
 Component - needs a button and a form - already knows what they are!
 
-####Controller
+#### Controller
 To change pages, always use the named page changing functionality in Twenty.app.controller. If the thing you are looking for isn't there, feel free to write it. Use a sensible name (read the other names, and decide for yourself what is sensible based on what has gone before)
 
-####Errors
+#### Errors
 If you are writing a part of the app which is going to be used by another part of the app, it is valid to assume that the developer using your library / component / core cleverness is going to RTFM and not send crap inputs.
 
 Or, in other words, if you say that "to use this function, you should send a string parameter", then you don't need to test that the function was indeed called with a string, and you don't need to notify the other developer when they send a callback function as the parameter and blow the application up.
@@ -660,18 +660,18 @@ Use Twenty.error.log This does not do much other than log errors at the moment. 
 ```javascript
 Twenty.error.log("Twenty.datamodel.getUniqueKey: You need to provide a prefix");
 ```
-####Core and Dom
+#### Core and Dom
 Put generic useful functions-which-manipulate stuff here.
 Functions which modify javsacript itself, or provide string or number or date like functions (core javascript things) go in Twenty.core
 
 Things which assume a browser - dom manipulations, form validation, window scrolling, etc go in Twenty.dom
 
-####DataModel
+#### DataModel
 Things which manipulate feed data go in Twenty.datamodel
 
-##Chapter 6
-###JQuery and other Libraries
-#####JQuery
+## Chapter 6
+### JQuery and other Libraries
+##### JQuery
 As we said above, don't think that you have to use jQuery for everything. In the webapp, jQuery and React are available to you. React handles all the page creation, transition, routing stuff and does it really quite well.
 Again as said above, but worth repeating, don't use jQuery just to lookup a node in order to read a property or change and attribute.
 It is ok to use jQuery to:
@@ -696,7 +696,7 @@ $pageNumber = $topElement.find(".pagenumber");
 A note on find()
 Find is faster than one-hit lookups. This is all to do with how selectors work anyway and is a big a complicated task, but basically selectors work backwards. If you want to find a certain bunch of list items in a document, then you might think of this
 ```javascript
-var myListItems = document.querySelectorAll("#aCertainSection" .aTypeofUL li);
+var myListItems = document.querySelectorAll("# aCertainSection" .aTypeofUL li);
 ```
 Now, this looks as if it is going to work left to right, first of all finding your section, then the particular type of unordered list you are looking for, then the list items in it. This is not what happens.
 
@@ -713,7 +713,7 @@ But now I think about it, I bet mine is faster, because I am being more specific
 I win, jQuery, I WIN.
 (of course... round here we don't make wild claims and take a bow. We make JSPerfs and take a bow: http://jsperf.com/jquery-child-selector-vs-find/18 )
 
-####And other Libraries
+#### And other Libraries
 If you want to cause bloat in a front end application* the very best way to do this is to include third party libraries instead of coding stuff yourself.
 
 Other people's code is always terrible. Don't assume that just because you don't know who wrote it, or that because it was written by a whole bunch of people in their spare time that it is any good. It might be, but hey, you're awesome. You can do better!
@@ -723,7 +723,7 @@ This does not mean "Do not use other people's libraries". It means that when you
 A library that is only used once isn't a library, it's a hack.
 *we don't want to cause bloat. Just so that's clear.
 
-###Preoptimisation
+### Preoptimisation
 The JS engine is better at optimising than you are.
 Here's a great example.
 ```javascript
@@ -741,8 +741,8 @@ That doesn't mean doing stupid things is OK. It's not. But esoteric nonsesne bec
 
 If you can't write the tests (see http://jsperf.com/ for how to make it easy), you don't understand the "optimisation" well enough to use it. Here is the perf
 
-##Chapter 7
-###The Specification
+## Chapter 7
+### The Specification
 
 [Read the ECMA spec once a year.](http://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
