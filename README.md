@@ -41,7 +41,7 @@ You can modify an object values with blistering speed in JS, but as soon as you 
 
 Fix the shape of the object at the top, when you define it, never ever modify it and you're giving the compiler a massive helping hand.
 
-__This__ is super fast:
+__This__ will always be fast:
 ```javascript
 var myObject = {
 	thinga: 12,
@@ -51,7 +51,7 @@ var myObject = {
  ```javascript
 myObject.thingb = "hello world"
 ```
-__This__ is super slow: (in production code, like when it's being used and stuff)
+__This__ has the potential to slow things down a lot: (in production code, like when it's being used and stuff)
 ```javascript
 var myObject = {
 	thinga: 12
@@ -68,6 +68,7 @@ var myObject = {
 ```
 
 If you want to know more about this, there are books on the iPads.
+_(we have iPads with extensive, constantly updated libraries on them. People are strongly encouraged to take them with them home or on holiday for some light reading :) )_
 #### Whitespace
 Set up your code editor to expand all tabs to four spaces. Sure, some people prefer two spaces. Some crazies even like eight. There reason for four is that it makes everything line up prettily when initialising variables. The word var has three characters. The space after it counts as another one. That makes four.
 
@@ -77,18 +78,26 @@ Try not to use too many blank lines keeping things compact is easier to read. If
 
 The only JavaScript on the internet that consistently uses spaces inside parenthesis are the source and example code of jQuery.
 
-jQuery is mostly ugly and literally everyone else does things like this:
+jQuery source code is, in the opinion of this author, mostly ugly. Look at it!
+```javascript
+$( "#tags" ).autocomplete({
+    source: availableTags
+});
+```
+literally everyone else on the internets omits those spaces. As do we:
 
 ```javascript
-if(something) {
-	// do something
-}
+getCollectionFunction("#tags").autocomplete({
+    source: availableTags
+});
 ```
+All operators always get a space before and after
 ```javascript
 1 + 1 = 2;
-```
-```javascript
-if(something && somethingelse === 2) ...
+
+if(something && somethingelse === 2) {
+
+}
 ```
 Opening braces have a single whitespace before them and a new line after them.
 
@@ -127,7 +136,6 @@ If you don't understand the difference between Bad and Badish, then the second o
     params: true
 });
 ```
-
 The line following an opening brace is always indented a further 4 spaces.
 
 A closing brace always occupies a line all on its own, and will be indented 4 spaces fewer than the line above it.
@@ -135,13 +143,13 @@ A closing brace always occupies a line all on its own, and will be indented 4 sp
 ## Chapter 2
 ### Variables
 
-The `new` keyword should be avoided wherever possible. It is _always_ possible.
+The `new` keyword should be avoided wherever possible. It is _always_ possible. (Except when it's not. See later... )
 
 Primitives should be initialised as an instance of what you want them to be. This avoids a lot of internal overhead of having to haul ass all the way up the prototype chain.
 ```javascript
- var myString = '',
-     myArray = [],
-     myObject = {};
+ var itemName = '',
+     setOfThings = [],
+     params = {};
 ```
 The short example above also illustrates three other important Best Practices – onevar, tabbing and naming conventions.
 #### Naming Javascript Variables
@@ -165,6 +173,12 @@ That was words, by the way, not numbers
 ##### Onevar and Scopes
 
 Javascript used to have three scopes. Now it has four.
+|scopes then| scopes now|
+|----|----|
+|global | global |
+|function |function |
+|eval| eval|
+||block|
 
 Variables should be declared once at the top of the scope to which they belong. Seeing as we avoid global variables wherever possible (which is, basically, always. We have one global variable - Twenty. That should be enough for anyone.), this means at the top of the function in which they are used.
 Using onevar is the best defence you have against leaking variables into the global scope.
@@ -439,7 +453,7 @@ There is a time when individual parameters is to be recommended over a parameter
 ##### Naming Function Parameters
 Well known types and frequently used objects must be consistently named. Examples:
    * domNodes should be called `el`, collections of domNodes are called `els` or `elements`
-   * objects of type `TwentyPageParams` should always be called `params`
+   * objects of type `TwentyPageParams` should always be called `pageParams`
    * native and Twetny events are always called `e`
    * unique identifiers are always called something descriptive with a suffix of `Id` - `storyId`,`categoryId`, etc
    * If your parameters are simple primitives (ie of type string, number, boolean), then give them sensible, descriptive names. -`categoryName`, `position`, etc
@@ -695,9 +709,11 @@ $pageNumber = $topElement.find(".pagenumber");
 
 A note on find()
 Find is faster than one-hit lookups. This is all to do with how selectors work anyway and is a big a complicated task, but basically selectors work backwards. If you want to find a certain bunch of list items in a document, then you might think of this
+
 ```javascript
 var myListItems = document.querySelectorAll("# aCertainSection" .aTypeofUL li);
 ```
+
 Now, this looks as if it is going to work left to right, first of all finding your section, then the particular type of unordered list you are looking for, then the list items in it. This is not what happens.
 
 What actually happens is that the parser first finds all the list items in the document. Then it chucks out all the ones not in the certainTypeofUL. Then it looks that remaining ones, and keeps just those which are in the aCertainSection that you are interested in.
