@@ -178,12 +178,14 @@ That was words, by the way, not numbers
 ##### Onevar and Scopes
 
 Javascript used to have three scopes. Now it has four.
+
 |scopes then| scopes now|
 |----|----|
 |global | global |
 |function |function |
 |eval| eval|
 ||block|
+
 
 Variables should be declared once at the top of the scope to which they belong. Seeing as we avoid global variables wherever possible (which is, basically, always. We have one global variable - Twenty. That should be enough for anyone.), this means at the top of the function in which they are used.
 Using onevar is the best defence you have against leaking variables into the global scope.
