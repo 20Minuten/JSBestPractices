@@ -1,6 +1,6 @@
 # Javascript Best Practices - v.ES6
 
-The Golden Rule or Best Practices in any organisation is  ___Monkey see. Monkey do.___
+The Golden Rule for Best Practices in any organisation is  ___Monkey see. Monkey do.___
 
 ## Best Practices Rule Number One
 __Sweat the small stuff.__
