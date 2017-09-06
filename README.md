@@ -39,7 +39,7 @@ We LINT on the build. If code doesn't pass lint, it doesn't get built. If it doe
 
 Almost all of what follows in this section is built into the linting rules!
 
-####Object Shapes
+#### Object Shapes
 Objects should always be declared in exactly the form they are going to be used, at the smallest scope, and must never be mutated. See the NASA rules number 6.
 
 You can modify an object values with blistering speed in JS, but as soon as you change the shape of an object, the JIT compiler has to rebox it in every single reference.
