@@ -20,13 +20,13 @@ A variable is a placeholder for a value.
 A function is a block of code made up of one or more statements or operations which work together to do a predictable something.
 An object is a collection of variables which are called "Object attributes" and functions which are called "Object methods"
 #### Native Methods
-Always use native methods when they are available. If an native method is available, and you use a crazy cool hack to achieve the same thing, I'll be expecting it to come with a slew of JSPerfs. See "Preoptimisation" at the bottom of the page.
+Always use native methods when they are available. See "Preoptimisation" at the bottom of the page.
 ##### JQuery
 JQuery comes with the site, but hey who knows if we will take it out one day.  Yeah ok, it's unlikely, but when you know that JQuery is wrapping a JavaScript native function (or method, naturally), don't use the JQuery. See  Chapter 3 on "JQuery and other LIbraries" near the bottom of this page.
 ##### Use ES6
 We now babelify everything. Use ES6 where it is appropriate. If you don't know where it is appropriate, keep reading.
    * Step 1: Make sure you are using strict everywhere. No exceptions
-   * Step 2. Turn on JSLINT Keep it on. Put it on it's nastiest settings, and never turn it off.
+   * Step 2. Turn on JSLINT / ESLINT Keep it on. Put it on it's nastiest settings, and never turn it off.
    * Step 3. Write ES6.
 
 If it's good enough for NASA, it's good enough for us. (Rule number 10).
@@ -34,7 +34,12 @@ If it's good enough for NASA, it's good enough for us. (Rule number 10).
 http://pixelscommander.com/wp-content/uploads/2014/12/P10.pdf
 
 ### Formatting
-Object Shapes
+
+We LINT on the build. If code doesn't pass lint, it doesn't get built. If it doesn't get built, you can't commit.
+
+Almost all of what follows in this section is built into the linting rules!
+
+####Object Shapes
 Objects should always be declared in exactly the form they are going to be used, at the smallest scope, and must never be mutated. See the NASA rules number 6.
 
 You can modify an object values with blistering speed in JS, but as soon as you change the shape of an object, the JIT compiler has to rebox it in every single reference.
@@ -378,8 +383,8 @@ newPage = $("<div id='${idref}'></div>");        // es-new
 __Do not use__ template strings as a direct parameter to a sizzle lookup.
 ```javascript
 let node = {id: "myNode"};
-$("# " + node.id);        // es-old
-$(`# ${node.id}`);        // es-new
+$("#" + node.id);        // es-old
+$(`#${node.id}`);        // es-new
 ```
 Anyone trying to tell me that the new version of this is easier to read, better sugar or less prone to errors had better have some pretty big arguments to back them up. Don't do this. It's horrible.
 
@@ -753,7 +758,7 @@ _Everything you have read about how to optimise your javascript code for speed i
 
 On top of that, everything you know about Javascript-specific optimising on the desktop is irrelevant on the mobile.
 
-That doesn't mean doing stupid things is OK. It's not. But esoteric nonsesne because you read it somewhere MUST be backed up by your own tests.
+That doesn't mean doing stupid things is OK. It's not. But esoteric nonsense because you read it somewhere MUST be backed up by your own tests.
 
 If you can't write the tests (see http://jsperf.com/ for how to make it easy), you don't understand the "optimisation" well enough to use it. Here is the perf
 
